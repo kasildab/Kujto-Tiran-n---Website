@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyramid Destinations</title>
+    <link rel="icon" type="image/x-icon" href="images/logo1.png">
+    <link href='https://fonts.googleapis.com/css?family=Reenie+Beanie' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/allstyle.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Navbar styles */
+        .navbar a {
+            margin-right: 15px;
+        }
+
+        .icons {
+            margin-right: 20px;
+        }
+
+        button {
+            margin-left: 20px;
+        }
+
+        button[data-dropdown-toggle="language-dropdown-menu"] {
+            font-size: 15px;
+        }
+
+        /* Polaroid Gallery Styles */
+        figure {
+            background-color: white;
+            box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 300px;
+            transform: scale(0.7);
+            transition: all 0.6s ease-in-out;
+            position: absolute;
+            z-index: 0;
+            margin-top: 100px;
+        }
+
+        /* Staggered stacking effect */
+        figure:nth-child(1) {
+            top: 20px;
+            left: 10%;
+            transform: rotate(-5deg) scale(0.8);
+        }
+        figure:nth-child(2) {
+            top: 40px;
+            left: 15%;
+            transform: rotate(3deg) scale(0.85);
+        }
+        figure:nth-child(3) {
+            top: 60px;
+            left: 20%;
+            transform: rotate(-2deg) scale(0.9);
+        }
+        figure:nth-child(4) {
+            top: 80px;
+            left: 25%;
+            transform: rotate(4deg) scale(0.95);
+        }
+        figure:nth-child(5) {
+            top: 100px;
+            left: 30%;
+            transform: rotate(-1deg) scale(1);
+        }
+
+        /* Current image (centered & enlarged) */
+        figure.current {
+            transform: rotate(0deg) scale(1.1) !important;
+            left: 50% !important;
+            margin-left: -150px;
+            z-index: 100;
+            top: 50px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Previous & next images */
+        figure.prev {
+            left: 10% !important;
+            transform: rotate(-10deg) scale(0.8) !important;
+            opacity: 0.7;
+            z-index: 1;
+        }
+        figure.next {
+            left: 80% !important;
+            transform: rotate(10deg) scale(0.8) !important;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        /* Image styling */
+        figure img {
+            display: none;
+        }
+        figure .img {
+            width: 250px;
+            height: 250px;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        /* Caption styling */
+        figure figcaption {
+            text-align: center;
+            font-family: 'Reenie Beanie', cursive;
+            margin-top: 15px;
+        }
+        figure figcaption h2 {
+            margin: 0;
+            padding: 0;
+            display: block;
+            line-height: 1.5em;
+            width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: normal;
+        }
+        figure figcaption p {
+            display: none;
+        }
+
+        /* Sort button styling */
+        .sort-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px 15px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Reenie Beanie', cursive;
+            font-size: 18px;
+        }
+        .sort-btn:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo"> <i class="fas fa-hiking" style="color: rgb(56, 31, 31);"></i> kujto tiranën. </a>
+    
+        <nav class="navbar">
+            <div id="nav-close" class="fas fa-times"></div>
+            <a href="../../index.html">Home</a>
+            <a href="../../#info">Why Tirana?</a>
+            <a href="../../map.html">Map</a>
+            <a href="../../about.html">About Us</a>
+        </nav>
+   
+        <button type="button" data-dropdown-toggle="language-dropdown-menu" class="inline-flex items-center justify-center px-4 py-2 text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+            Language
+        </button>
+        <div class="z-50 hidden my-4 text-3xl list-none bg-white divide-y rounded-lg shadow-sm" id="language-dropdown-menu">
+            <ul class="py-2 font-medium " role="none">
+                <li>
+                    <a href="#" class="block px-4 py-2 text-3xl bg-white text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                        <div class="inline-flex items-center">
+                            <svg aria-hidden="true" class="h-5 w-5 rounded-full me-2" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/><path fill="#fff" d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/></g><path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)"/><path fill="#fff" d="M8.2 3l1 2.8H12L9.7 7.5l.9 2.7-2.4-1.7L6 10.2l.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 7.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 24.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 21.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 38.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 35.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 52.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 49.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 66.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 63.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9z" transform="scale(3.9385)"/></g></svg>              
+                            English (US)
+                        </div>
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-3xl bg-white text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                        <div class="inline-flex items-center">
+                            <svg aria-hidden="true" class="h-5 w-5 rounded-full me-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="#E30A17" d="M0 0h512v512H0z"/>
+                                <path fill="#FFF" d="M245.76 61.44l-16.68 50.86h-53.35l43.29 31.43-16.66 50.86 43.29-31.43 43.28 31.43-16.67-50.86 43.28-31.43h-53.34z"/>
+                            </svg>
+                            Albanian (AL)
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="foto">
+        <figure>
+            <h1 class="year">1990</h1>
+            <img src="http://farm8.staticflickr.com/7324/12378548645_2d3da9fc07_b.jpg" alt="Dragonfly" />
+            <div class="img" style="background-image: url(http://farm8.staticflickr.com/7324/12378548645_2d3da9fc07_b.jpg)"></div>
+            <figcaption>
+                <h2>A Dragonfly sitting on a fence.</h2>
+                <p>This is a dragon fly. It's a fly not a dragon.</p>
+            </figcaption>
+        </figure>
+
+        <figure>
+            <h1 class="year">2000</h1>
+            <img src="http://farm4.staticflickr.com/3592/3633095489_381ec003e2_b.jpg" alt="Cow" />
+            <div class="img" style="background-image: url(http://farm4.staticflickr.com/3592/3633095489_381ec003e2_b.jpg)"></div>
+            <figcaption>
+                <h2>Such a cow!</h2>
+                <p>You are such a cow!</p>
+            </figcaption>
+        </figure>
+
+        <figure>
+            <h1 class="year">1900</h1>
+            <img src="http://farm3.staticflickr.com/2436/3633956556_eb96ddab1e_o.jpg" alt="Kingfisher" />
+            <div class="img" style="background-image: url(http://farm3.staticflickr.com/2436/3633956556_eb96ddab1e_o.jpg)"></div>
+            <figcaption>
+                <h2>Kingfisher</h2>
+                <p>King of the fishers.</p>
+            </figcaption>
+        </figure>
+
+        <figure>
+            <h1 class="year">1990</h1>
+            <img src="http://farm4.staticflickr.com/3641/3684159186_ddb7a12b71_b.jpg" alt="Cat" />
+            <div class="img" style="background-image:url(http://farm4.staticflickr.com/3641/3684159186_ddb7a12b71_b.jpg)"></div>
+            <figcaption>
+                <h2>Chillax Cat</h2>
+                <p>A chilled cat relaxing.</p>
+            </figcaption>
+        </figure>
+
+        <figure>
+            <h1 class="year">1930</h1>
+            <img src="http://farm3.staticflickr.com/2454/3633953178_6e6e7d095c_b.jpg" alt="Swan" />
+            <div class="img" style="background-image: url(http://farm3.staticflickr.com/2454/3633953178_6e6e7d095c_b.jpg)"></div>
+            <figcaption>
+                <h2>Swanning around at Sunset.</h2>
+                <p></p>
+            </figcaption>
+        </figure>
+    </div>
+
+    <!-- Sort button -->
+    <button class="sort-btn" onclick="sortPhotosByYear()">Sort by Year (Newest First)</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to sort photos by year in descending order
+        function sortPhotosByYear() {
+            const container = $('.foto');
+            const figures = $('figure').get();
+            
+            // Sort figures by year in descending order
+            figures.sort((a, b) => {
+                const yearA = parseInt($(a).find('.year').text());
+                const yearB = parseInt($(b).find('.year').text());
+                return yearB - yearA;
+            });
+            
+            // Remove all figures from container
+            container.empty();
+            
+            // Re-append sorted figures
+            $.each(figures, (index, figure) => {
+                container.append(figure);
+            });
+            
+            // Reset the carousel animation
+            $('figure').removeClass("current prev next");
+            $('figure').addClass("next").first().removeClass("next").addClass("current");
+        }
+
+        // Initialize the carousel
+        $('figure').addClass("next").first().removeClass("next").addClass("current");
+
+        setInterval(function() { 
+            var nxt = $('figure.current')
+                .removeClass("current")
+                .addClass("prev")
+                .next();
+            if(nxt.length == 0) {
+                nxt = $('figure:first');
+                $('figure:gt(0)').addClass('next').removeClass('prev');
+            }
+            
+            nxt.addClass("current")
+                .removeClass("next");
+        }, 2000);
+
+        // Sort photos initially by year
+        $(document).ready(function() {
+            sortPhotosByYear();
+        });
+    </script>   
+  
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+</body>
+</html>
