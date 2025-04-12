@@ -372,7 +372,7 @@ h3 {
     padding-top: 10px;
 }
 .contact-box{
-	max-width: 1000px;
+	max-width: 1110px;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	justify-content: center;
@@ -389,7 +389,7 @@ h3 {
 }
 
 .right{
-	padding: 25px 40px;
+	padding: 40px 100px;
 }
 
 h2{
