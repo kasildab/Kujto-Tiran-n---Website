@@ -218,9 +218,12 @@ hr {
   border-radius: 10px;
 }
 .mapi .content {
+  text-align: justify;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 42rem;
           flex: 1 1 42rem;
+          flex-wrap: wrap;
+          
 }
 
 .mapi .content h3 {
@@ -1025,7 +1028,6 @@ h3 {
 .adventurepage .container img {
   width: 100vw;
 } 
-
 
 }
 
