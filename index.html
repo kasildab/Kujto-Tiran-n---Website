@@ -530,6 +530,22 @@ height: 40px;
 border-radius: 50%;
 cursor: pointer;
 }
+.upload-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1000;
+        padding: 10px 15px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Reenie Beanie', cursive;
+        font-size: 18px;
+    }
+    .upload-btn:hover {
+        background: #f0f0f0;
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S79Y2FRX1H"></script>
@@ -1594,10 +1610,123 @@ document.getElementById("contactForm").addEventListener("submit", function(event
 <div class="foto" id="polaroidGallery" style="display: none;">
     <button class="polaroid-close" onclick="hidePolaroidGallery()">&times;</button>
     <div id="polaroidContent"></div>
-    <button class="sort-btn" onclick="sortPhotosByYear()">Upload Photos</button>
+    <button class="sort-btn" onclick="sortPhotosByYear()">Sort Photos</button>
+    <button class="upload-btn" onclick="document.getElementById('uploadInput').click()">Upload Image</button>
+    <input type="file" id="uploadInput" style="display: none;" accept="image/*">
   </div>
   </div>
-
+  <script>
+    document.getElementById('uploadInput').addEventListener('change', function(e) {
+         const file = e.target.files[0];
+         if (file) {
+             const year = prompt("Enter the year for this image:");
+             const caption = prompt("Enter a caption for this image:");
+             
+             const reader = new FileReader();
+             reader.onload = async function(event) {
+                 const dataUrl = event.target.result;
+                 
+                 // Create temporary figure for measurement
+                 const tempFigure = document.createElement('figure');
+                 tempFigure.style.visibility = 'hidden';
+                 tempFigure.innerHTML = `
+                     <h1 class="year">${year}</h1>
+                     <div class="img" style="background-image: url(${dataUrl})"></div>
+                     <figcaption>
+                         <h2>${caption}</h2>
+                         <p></p>
+                     </figcaption>
+                 `;
+                 document.querySelector('.foto').appendChild(tempFigure);
+                 
+                 // Wait for rendering
+                 await new Promise(resolve => requestAnimationFrame(resolve));
+                 
+                 // Get natural stacking position
+                 const newIndex = [...document.querySelectorAll('figure')]
+                     .findIndex(fig => fig === tempFigure);
+                 
+                 // Remove temporary figure
+                 tempFigure.remove();
+ 
+                 // Create final figure with calculated position
+                 const figure = document.createElement('figure');
+                 figure.innerHTML = `
+                     <h1 class="year">${year || 'Unknown Year'}</h1>
+                     <div class="img" style="background-image: url(${dataUrl})"></div>
+                     <figcaption>
+                         <h2>${caption || 'New Image'}</h2>
+                         <p></p>
+                     </figcaption>
+                 `;
+ 
+                 // Calculate position based on sorted index
+                 const topPos = 20 + (20 * newIndex);
+                 const leftPos = 10 + (5 * newIndex);
+                 const rotations = [-5, 3, -2, 4, -1];
+                 const rotation = rotations[newIndex % rotations.length];
+                 const scale = 0.8 + (0.05 * newIndex);
+                 
+                 Object.assign(figure.style, {
+                     top: `${topPos}px`,
+                     left: `${leftPos}%`,
+                     transform: `rotate(${rotation}deg) scale(${scale})`,
+                     zIndex: newIndex,
+                     position: 'absolute',
+                     transition: 'all 0.5s ease-in-out'
+                 });
+ 
+                 document.querySelector('.foto').appendChild(figure);
+                 sortPhotosByYear(true); // Soft sort without repositioning
+             };
+             reader.readAsDataURL(file);
+         }
+     });
+     function sortPhotosByYear(softSort = false) {
+         const container = document.querySelector('.foto');
+         const figures = [...container.children];
+         
+         // Clone elements to preserve positions
+         const sortedFigures = figures.slice().sort((a, b) => {
+             const yearA = parseInt(a.querySelector('.year').textContent) || 0;
+             const yearB = parseInt(b.querySelector('.year').textContent) || 0;
+             return yearB - yearA;
+         });
+ 
+         if (!softSort) {
+             // Full sort with smooth transitions
+             sortedFigures.forEach((fig, index) => {
+                 const topPos = 20 + (20 * index);
+                 const leftPos = 10 + (5 * index);
+                 const rotation = [-5, 3, -2, 4, -1][index % 5];
+                 const scale = 0.8 + (0.05 * index);
+                 
+                 Object.assign(fig.style, {
+                     top: `${topPos}px`,
+                     left: `${leftPos}%`,
+                     transform: `rotate(${rotation}deg) scale(${scale})`,
+                     zIndex: index
+                 });
+             });
+         }
+ 
+         // Maintain DOM order for carousel
+         sortedFigures.forEach(fig => container.appendChild(fig));
+         
+         // Update carousel state
+         $(container).find('figure').removeClass("current prev next");
+         $(container).find('figure').each(function(index) {
+             if(index === 0) $(this).addClass("current");
+             else if(index === 1) $(this).addClass("next");
+             else $(this).addClass("prev");
+         });
+     }
+ 
+     // Initialize with stable layout
+     $(document).ready(function() {
+         sortPhotosByYear(true);
+     });
+ </script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
@@ -2343,6 +2472,7 @@ function showTimeline() {
         justify-content: left;
     }
 </style>
+
 
 <!-- product section links -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
