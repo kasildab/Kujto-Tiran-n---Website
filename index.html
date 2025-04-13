@@ -629,10 +629,10 @@ cursor: pointer;
 
     <nav class="navbar">
         <div id="nav-close" class="fas fa-times"></div>
-        <a href="index.html">Home</a>
-        <a href="#hart">Why Tirana?</a>
-        <a href="#explore">Map</a>
-        <a href="#aboutus">About Us</a>
+        <a href="index.html" data-translate="home">Home</a>
+        <a href="#hart" data-translate="why_tirana">Why Tirana?</a>
+        <a href="#explore" data-translate="map">Map</a>
+        <a href="#aboutus" data-translate="about">About Us</a>
     </nav>
 
     <div class="icons">
@@ -697,7 +697,7 @@ const translations = {
     // Navigation
     'home': 'Home',
     'why_tirana': 'Why Tirana?',
-    'hart': 'Map',
+    'map': 'Map',
     'about': 'About Us',
     'language': 'Language',
     
@@ -732,6 +732,9 @@ const translations = {
     'contact_title': 'Contact us',
     'contact_subtitle': 'We are open for any suggestion or to solve a problem.',
     'get_in_touch': 'Get in touch',
+    'kv': 'Unlock the Past: Top Places in Tirana to Experience Time Capsules',
+
+    'klevivokshi': 'Explore Tirana Historical and Cultural Gems',
     
     // Contact Form
     'contact_form': {
@@ -826,7 +829,7 @@ const translations = {
     // Navigation
     'home': 'Kryefaqja',
     'why_tirana': 'Pse Tirana?',
-    'hart': 'Harta',
+    'map': 'Harta',
     'about': 'Rreth Nesh',
     'language': 'Gjuha',
     
@@ -861,7 +864,8 @@ const translations = {
     'contact_title': 'Na kontaktoni',
     'contact_subtitle': 'Jemi të hapur për çdo sugjerim ose për të zgjidhur një problem.',
     'get_in_touch': 'Lidhuni me ne',
-    
+    'kv': 'Kujto të kaluarën: Vendet më të mira në Tiranë për të përjetuar kapsula kohore',
+    'klevivokshi': 'Eksploroni perlat historike dhe kulturore të Tiranës',
     // Contact Form
     'contact_form': {
       'name': 'Emri juaj',
@@ -979,8 +983,8 @@ function updateTexts() {
   try {
     // Navigation items
     updateElementText('.navbar a[href="index.html"]', langData['home']);
-    updateElementText('.navbar a[href="#info"]', langData['why_tirana']);
-    updateElementText('.navbar a[href="map.html"]', langData['hart']);
+    updateElementText('.navbar a[href="#hart"]', langData['why_tirana']);
+    updateElementText('.navbar a[href="#explore"]', langData['map']);
     updateElementText('.navbar a[href="about.html"]', langData['about']);
     
     // Home section
@@ -1027,6 +1031,9 @@ function updateTexts() {
     updatePlaceholder('#phone', langData['contact_form']['phone']);
     updatePlaceholder('#message', langData['contact_form']['message']);
     updateElementValue('#send-btn', langData['contact_form']['send']);
+    updateElementText('#k', langData['kv']);
+    updateElementText('#klevi', langData['klevivokshi']);
+
     
     // Team Roles
     document.querySelectorAll('[data-role]').forEach(el => {
@@ -1047,14 +1054,10 @@ let currentLanguage = 'en';
 
 // Function to change language
 function changeLanguage(lang) {
-  currentLanguage = lang;
-  updateTexts();
-  
-  // Store preference in localStorage
-  localStorage.setItem('languagePreference', lang);
-  
-  // Update button text
-  document.querySelector('[data-dropdown-toggle="language-dropdown-menu"]').textContent = translations[lang]['language'];
+    currentLanguage = lang;
+    console.log('Language changed to:', currentLanguage);
+    updateTexts();
+    localStorage.setItem('languagePreference', lang);
 }
 
 // Initialize language on page load
@@ -1068,15 +1071,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Set up click handlers for language dropdown
   document.querySelectorAll('[role="menuitem"]').forEach(item => {
     item.addEventListener('click', function(e) {
-      e.preventDefault();
-      const lang = this.textContent.includes('English') ? 'en' : 'al';
-      changeLanguage(lang);
-      
-      // Close dropdown
-      document.getElementById('language-dropdown-menu').classList.add('hidden');
+        e.preventDefault();
+        const lang = this.textContent.includes('English') ? 'en' : 'al';
+        changeLanguage(lang);
+        document.getElementById('language-dropdown-menu').classList.add('hidden');
     });
-  });
 });
+});
+
 </script>
 
 <section class="home" id="home">
@@ -1134,7 +1136,7 @@ setInterval(changeImage, 5000);
 
 
 <div class="gallery-container">
-  <h2 class="gallery-title">Unlock the Past: Top Places in Tirana to Experience Time Capsules</h2>
+  <h2 id="k">Unlock the Past: Top Places in Tirana to Experience Time Capsules</h2>
   
   <div class="gallery" id="gallery" >
       <!-- Gallery items will be inserted here by JavaScript -->
@@ -1208,7 +1210,7 @@ setInterval(changeImage, 5000);
           
           for (let i = startIndex; i < endIndex; i++) {
               const image = images[i];
-// In your displayGalleryItems function, modify the gallery.append code:
+          // In your displayGalleryItems function, modify the gallery.append code:
             gallery.append(`
                 <div class="gallery-item" onclick="openGalleryTimeline('${image.locationKey}')">
                     <div class="gallery-image-container">
@@ -1343,7 +1345,7 @@ setInterval(changeImage, 5000);
                 <p class="text-muted mb-4" id="preserving-text2">Understanding Tirana's past helps shape its future. By preserving historical narratives, we strengthen our cultural identity, foster a deeper appreciation for the city's transformation, and ensure that future generations can connect with its history.</p>
             </div>
             <div class="col-12 col-md-6">
-                <img src="images/National_History_Museum_29.webp">
+                <img src="https://static.wikia.nocookie.net/life-after-people-fanon/images/7/7d/National_History_Museum_%28Albania%29.jpg/revision/latest?cb=20221114230442">
             </div>
         </div>
     </section>
@@ -1578,7 +1580,7 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     </div>
     
     <div class="harta" >
-        <h1 style="font-family: 'Doto', sans-serif; text-align: center; margin-bottom: 20px;">Explore Tirana's Historical and Cultural Gems</h1>
+        <h1 style="font-family: 'Doto', sans-serif; text-align: center; margin-bottom: 20px;" id="klevi">Explore Tirana's Historical and Cultural Gems</h1>
       
       <!-- Timeline Container -->
       <div class="timeline-container" id="timelineContainer">
@@ -2164,37 +2166,17 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     }
 
     // Function to update all texts on the page
-    function updateTexts() {
-      const langData = translations[currentLanguage];
-      document.querySelectorAll('.navbar a[data-translate]').forEach(link => {
-        const key = link.getAttribute('data-translate');
-        link.textContent = langData[key];
-      });
-      
-      document.querySelector('[data-dropdown-toggle="language-dropdown-menu"]').textContent = langData['language'];
-    }
 
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize map and markers
       addMarkers();
-      
-      // Set up language preference
-      const savedLang = localStorage.getItem('languagePreference');
-      if (savedLang) {
+    const savedLang = localStorage.getItem('languagePreference');
+    if (savedLang) {
         changeLanguage(savedLang);
-      }
-      
-      // Set up click handlers for language dropdown
-      document.querySelectorAll('[role="menuitem"]').forEach(item => {
-        item.addEventListener('click', function(e) {
-          e.preventDefault();
-          const lang = this.textContent.includes('English') ? 'en' : 'al';
-          changeLanguage(lang);
-          document.getElementById('language-dropdown-menu').classList.add('hidden');
-        });
-      });
-    });
+    } else {
+        changeLanguage('en'); // Default to English
+    }
+});
 
     // Function to show polaroid gallery
 function showPolaroidGallery(location) {
