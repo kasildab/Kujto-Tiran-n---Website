@@ -1163,6 +1163,35 @@ setInterval(changeImage, 5000);
   </div>
   
 </div>
+<div class="cont" id="explore">
+  <!-- New sidebar -->
+  <div class="sidebar" id="sidebar">
+
+    <div class="sidebar-content" id="sidebar-content">
+      <!-- Content will be populated by JavaScript -->
+    </div>
+  </div>
+  
+  <div class="harta" >
+      <h1 style="font-family: 'Doto', sans-serif; text-align: center; margin-bottom: 20px;" id="klevi">Explore Tirana's Historical and Cultural Gems</h1>
+    
+    <!-- Timeline Container -->
+    <div class="timeline-container" id="timelineContainer">
+      <button class="timeline-close" onclick="hideTimeline()">&times;</button>
+      <div id="timelineContent"></div>
+    </div>
+    
+    <div id="map"></div>
+  </div>
+  <!-- Polaroid Gallery -->
+<div class="foto" id="polaroidGallery" style="display: none;">
+  <button class="polaroid-close" onclick="hidePolaroidGallery()">&times;</button>
+  <div id="polaroidContent"></div>
+  <button class="sort-btn" onclick="sortPhotosByYear()">Sort Photos</button>
+  <button class="upload-btn" onclick="document.getElementById('uploadInput').click()">Upload Image</button>
+  <input type="file" id="uploadInput" style="display: none;" accept="image/*">
+</div>
+</div>
 <section class="mapi" id="hart">
   <div class="image">
     <img src="images/5.png" class="center" alt="">
@@ -1586,35 +1615,7 @@ document.getElementById("contactForm").addEventListener("submit", function(event
 <!-- custom js file link  -->
 <script src="js/allscript.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-<div class="cont" id="explore">
-    <!-- New sidebar -->
-    <div class="sidebar" id="sidebar">
 
-      <div class="sidebar-content" id="sidebar-content">
-        <!-- Content will be populated by JavaScript -->
-      </div>
-    </div>
-    
-    <div class="harta" >
-        <h1 style="font-family: 'Doto', sans-serif; text-align: center; margin-bottom: 20px;" id="klevi">Explore Tirana's Historical and Cultural Gems</h1>
-      
-      <!-- Timeline Container -->
-      <div class="timeline-container" id="timelineContainer">
-        <button class="timeline-close" onclick="hideTimeline()">&times;</button>
-        <div id="timelineContent"></div>
-      </div>
-      
-      <div id="map"></div>
-    </div>
-    <!-- Polaroid Gallery -->
-<div class="foto" id="polaroidGallery" style="display: none;">
-    <button class="polaroid-close" onclick="hidePolaroidGallery()">&times;</button>
-    <div id="polaroidContent"></div>
-    <button class="sort-btn" onclick="sortPhotosByYear()">Sort Photos</button>
-    <button class="upload-btn" onclick="document.getElementById('uploadInput').click()">Upload Image</button>
-    <input type="file" id="uploadInput" style="display: none;" accept="image/*">
-  </div>
-  </div>
   <script>
     document.getElementById('uploadInput').addEventListener('change', function(e) {
          const file = e.target.files[0];
